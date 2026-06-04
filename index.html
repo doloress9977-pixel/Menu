@@ -1254,7 +1254,7 @@ function renderAdminEditor() {
     let html = `<h3>${cat.emoji} ${cat.label}</h3>`;
     allItems.forEach((item, ii) => {
       const hiddenClass = item.hidden ? 'hidden-product' : '';
-      const hasBottle = item.price2 !== undefined;
+      const hasBottle = item.price2 !== undefined || cat.id === 'vini';
       const variantsVal = item.variants ? item.variants.join(', ') : '';
       html += `<div class="admin-product-row ${hiddenClass}" id="arow-${item.id}" style="flex-wrap:wrap" draggable="true" data-item-id="${item.id}" data-cat-id="${cat.id}">
         <span class="drag-handle" title="Trascina per riordinare">⠿</span>
@@ -1340,7 +1340,7 @@ function updateItemPrice(itemId, val) {
 }
 function updateItemPrice2(itemId, val) {
   const item = findItem(itemId);
-  if (item) item.price2 = parseFloat(val) || 0;
+  if (item) item.price2 = val === '' ? undefined : (parseFloat(val) || 0);
 }
 function updateItemVariants(itemId, val) {
   const item = findItem(itemId);
